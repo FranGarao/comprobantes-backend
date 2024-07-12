@@ -2,6 +2,9 @@
 using comprobantes_back.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Twilio.Types;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace comprobantes_back.Controllers
 {
@@ -10,7 +13,8 @@ namespace comprobantes_back.Controllers
     public class InvoicesController : ControllerBase
     {
         private readonly ICommonService<Invoice> _invoiceService;
-        public InvoicesController(ICommonService<Invoice> service)
+        public InvoicesController(ICommonService<Invoice> service,
+            ICommonService<Job> jobService)
         {
             _invoiceService = service;
         }
@@ -29,15 +33,81 @@ namespace comprobantes_back.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al obtener las facturas: {ex.Message}");
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error interno al obtener las facturas");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error interno al obtener las facturas: {ex.Message}");
             }
         }
 
         [HttpPost]
         public async Task<ActionResult<Invoice>> Add(Invoice invoice)
         {
-            Console.WriteLine(invoice);
+            if (invoice != null)
+            {
+                await _invoiceService.Add(invoice);
+
+                //SendWhatsAppMessage(invoice);
+
+                return CreatedAtAction(nameof(GetAll), new { id = invoice.Id }, invoice);
+
+            }
+            return BadRequest("No se pudo crear el comprobante.");
+        }
+
+        private void SendWhatsAppMessage(Invoice invoice)
+        {
+            const string accountSid = "your_account_sid";
+            const string authToken = "your_auth_token";
+            TwilioClient.Init(accountSid, authToken);
+
+            var to = new PhoneNumber("whatsapp:+recipient_number");
+            var from = new PhoneNumber("whatsapp:+your_twilio_number");
+
+            var message = MessageResource.Create(
+                body: $"Invoice Details:\nName: {invoice.Name}\nPhone: {invoice.Phone}\nDelivery Date: {invoice.DeliveryDate}\nTotal: {invoice.Total}\nDeposit: {invoice.Deposit}\nBalance: {invoice.Balance}\nJobId: {invoice.JobId}\nJob: {invoice.Job}",
+                from: from,
+                to: to
+            );
+
+            Console.WriteLine(message.Sid);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<Invoice>> GetById(int id)
+        {
+            var invoice = await _invoiceService.GetById(id);
+
+            if (invoice == null)
+            {
+                return NotFound($"No se encontró el comprobante con el id: {id}");
+            }
+
             return Ok(invoice);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult<Invoice>> Delete(int id)
+        {
+            var invoice = await _invoiceService.DeleteAsync(id);
+
+            if (invoice == null)
+            {
+                return NotFound($"No se encontró el comprobante con el id: {id}");
+            }
+
+            return Ok(invoice);
+        }
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Invoice>> Update(int id, Invoice invoice)
+        {
+            var updatedInvoice = await _invoiceService.UpdateAsync(id, invoice);
+
+            if (updatedInvoice == null)
+            {
+                return NotFound($"No se encontró el comprobante con el id: {invoice.Id}");
+            }
+
+            return Ok(updatedInvoice);
         }
     }
 }

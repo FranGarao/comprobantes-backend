@@ -31,3 +31,13 @@ C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-b
 C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-back\obj\Debug\net8.0\comprobantes-back.genruntimeconfig.cache
 C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-back\obj\Debug\net8.0\ref\comprobantes-back.dll
 C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-back\bin\Debug\net8.0\db\invoices.json
+C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-back\obj\Debug\net8.0\comprobantes-back.sourcelink.json
+C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-back\bin\Debug\net8.0\db\jobs.json
+C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-back\bin\Debug\net8.0\db\users.json
+C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-back\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-back\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-back\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-back\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-back\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-back\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\franco\Documents\Projects\comprobantes\comprobantes-back\comprobantes-back\bin\Debug\net8.0\Twilio.dll

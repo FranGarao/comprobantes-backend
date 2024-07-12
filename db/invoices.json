@@ -1,22 +1,57 @@
 [
   {
     "Id": 1,
-    "Name": "Invoice 1",
-    "Total": 100.50,
-    "Deposit": 50.00,
-    "Balance": 50.50,
-    "Job": 1,
-    "DeliveryDate": "2024-07-10T00:00:00",
-    "Phone": "1122334455"
+    "Name": "Invoice 2",
+    "Phone": "99989796",
+    "DeliveryDate": "2024-19-10T00:00:00",
+    "Total": 200.50,
+    "Deposit": 100.00,
+    "Balance": 100.50,
+    "JobId": 1,
+    "Job": "aa"
   },
   {
     "Id": 2,
     "Name": "Invoice 2",
+    "Phone": "99989796",
+    "DeliveryDate": "2024-19-10T00:00:00",
     "Total": 200.50,
     "Deposit": 100.00,
     "Balance": 100.50,
-    "Job": 1,
+    "JobId": 4,
+    "Job": "aa"
+  },
+  {
+    "Id": 3,
+    "Name": "Invoice 2",
+    "Phone": "99989796",
     "DeliveryDate": "2024-19-10T00:00:00",
-     "Phone": "99989796"
+    "Total": 200.50,
+    "Deposit": 100.00,
+    "Balance": 100.50,
+    "JobId": 1,
+    "Job": "Arreglo General"
+  },
+  {
+    "Id": 4,
+    "Name": "12",
+    "Phone": "12",
+    "DeliveryDate": "0012-12-12",
+    "Total": 12,
+    "Deposit": 12,
+    "Balance": 112,
+    "JobId": 2,
+    "Job": "Limpieza General"
+  },
+  {
+    "Id": 5,
+    "Name": "12",
+    "Phone": "12",
+    "DeliveryDate": "0012-12-12",
+    "Total": 12,
+    "Deposit": 12,
+    "Balance": 112,
+    "JobId": 2,
+    "Job": "Limpieza General"
   }
 ]

@@ -2,10 +2,10 @@
 {
     public interface ICommonService<T>
     {
-        public Task<IEnumerable<T>> GetAllASync();
+        public Task<List<T>> GetAllASync();
         public Task<T> GetById(int id);
         public Task<T> Add(T entity);
-        public Task<T> UpdateAsync(T entity);
-        public Task DeleteAsync(int id);
+        public Task<T> UpdateAsync(int id, T entity);
+        public Task<T> DeleteAsync(int id);
     }
 }

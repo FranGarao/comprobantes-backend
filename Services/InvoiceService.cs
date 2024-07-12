@@ -6,29 +6,79 @@ namespace comprobantes_back.Services
     public class InvoiceService : ICommonService<Invoice>
     {
         private readonly string _filePath = "./db/invoices.json";
-        public InvoiceService() { }
-        public async Task<IEnumerable<Invoice>> GetAllASync()
+        private ICommonService<Job> _jobService;
+        public InvoiceService(ICommonService<Job> jobService)
         {
-            using var stream = new FileStream(_filePath, FileMode.Open, FileAccess.Read);
-            var json = await JsonSerializer.DeserializeAsync<IEnumerable<Invoice>>(stream);
-            return json; 
+            _jobService = jobService;
+        }
+        public async Task<List<Invoice>> GetAllASync()
+        {
+                using var stream = new FileStream(_filePath, FileMode.Open, FileAccess.Read);
+                var invoices = await JsonSerializer.DeserializeAsync<List<Invoice>>(stream);
+
+                return invoices;
         }
 
-        public Task<Invoice> GetById(int id)
+        public async Task<Invoice> GetById(int id)
         {
-            throw new NotImplementedException();
+            var invoices = await GetAllASync();
+            var invoice = invoices.FirstOrDefault(i => i.Id == id);
+            if (invoice == null)
+            {
+                return null;
+            }
+            return invoice;
         }
-        public Task<Invoice> Add(Invoice entity)
+        public async Task<Invoice> Add(Invoice invoice)
         {
-            throw new NotImplementedException();
+            var invoices = await GetAllASync();
+            var job = await _jobService.GetById(invoice.JobId);
+
+            var newInvoice = new Invoice
+            {
+                Id = invoice.Id,
+                Name = invoice.Name,
+                DeliveryDate = invoice.DeliveryDate,
+                Phone = invoice.Phone,
+                Total = invoice.Total,
+                Deposit = invoice.Deposit,
+                Balance = invoice.Balance,
+                JobId = invoice.JobId,
+                Job = job.Name,
+            };
+
+            invoices.Add(newInvoice);
+            var jsonInvoices = JsonSerializer.Serialize(invoices);
+
+            File.WriteAllText(_filePath, jsonInvoices);
+
+            return invoice;
         }
-        public Task<Invoice> UpdateAsync(Invoice entity)
+        public async Task<Invoice> UpdateAsync(int id, Invoice entity)
         {
-            throw new NotImplementedException();
+            var invoice = await GetById(id);
+            if (invoice != null)
+            {
+                var invoices = await GetAllASync();
+                var index = invoices.FindIndex(i => i.Id == id);
+                invoices[index] = entity;
+                var jsonInvoices = JsonSerializer.Serialize(invoices);
+                File.WriteAllText(_filePath, jsonInvoices);
+                return invoice;
+            }
+            return null;
         }
-        public Task DeleteAsync(int id)
+
+
+        public async Task<Invoice> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var invoice = await GetById(id);
+            var invoices = await GetAllASync();
+            invoices.RemoveAll(i => i.Id == id);
+            var jsonInvoices = JsonSerializer.Serialize(invoices);
+            File.WriteAllText(_filePath, jsonInvoices);
+            return invoice;
         }
+
     }
 }

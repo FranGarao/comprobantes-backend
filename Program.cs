@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Injection of services
 builder.Services.AddSingleton<ICommonService<Invoice>, InvoiceService>();
+builder.Services.AddSingleton<ICommonService<Job>, JobService>();
 
 // Add services to the container.
 builder.Services.AddControllers();

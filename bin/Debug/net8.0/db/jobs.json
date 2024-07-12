@@ -1,0 +1,22 @@
+[
+  {
+    "Id": 1,
+    "Name": "Arreglo General",
+    "Price": 200.5
+  },
+  {
+    "Id": 2,
+    "Name": "Limpieza General",
+    "Price": 100.5
+  },
+  {
+    "Id": 3,
+    "Name": "Que se yo no se me ocurre",
+    "Price": 990.5
+  },
+  {
+    "Id": 4,
+    "Name": "uwu arigato",
+    "Price": 990.5
+  }
+]
