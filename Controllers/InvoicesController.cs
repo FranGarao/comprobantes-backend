@@ -2,12 +2,11 @@
 using comprobantes_back.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Twilio.Types;
-using Twilio;
-using Twilio.Rest.Api.V2010.Account;
+using Microsoft.AspNetCore.Authorization;
 
 namespace comprobantes_back.Controllers
 {
+    //[Authorize(Roles ="Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class InvoicesController : ControllerBase
@@ -50,24 +49,6 @@ namespace comprobantes_back.Controllers
 
             }
             return BadRequest("No se pudo crear el comprobante.");
-        }
-
-        private void SendWhatsAppMessage(Invoice invoice)
-        {
-            const string accountSid = "your_account_sid";
-            const string authToken = "your_auth_token";
-            TwilioClient.Init(accountSid, authToken);
-
-            var to = new PhoneNumber("whatsapp:+recipient_number");
-            var from = new PhoneNumber("whatsapp:+your_twilio_number");
-
-            var message = MessageResource.Create(
-                body: $"Invoice Details:\nName: {invoice.Name}\nPhone: {invoice.Phone}\nDelivery Date: {invoice.DeliveryDate}\nTotal: {invoice.Total}\nDeposit: {invoice.Deposit}\nBalance: {invoice.Balance}\nJobId: {invoice.JobId}\nJob: {invoice.Job}",
-                from: from,
-                to: to
-            );
-
-            Console.WriteLine(message.Sid);
         }
 
         [HttpGet]

@@ -11,5 +11,6 @@
         public decimal Balance {  get; set; } 
         public int JobId {  get; set; }
         public string? Job {  get; set; }
+        public bool Status { get; set; }
     }
 }

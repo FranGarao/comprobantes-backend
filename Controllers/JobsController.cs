@@ -28,10 +28,34 @@ namespace comprobantes_back.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener las facturas: {ex.Message}");
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error interno al obtener las facturas: {ex.Message}");
+                Console.WriteLine($"Error al obtener los trabajos: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error interno al obtener los trabajos: {ex.Message}");
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult<Job>> Create(Job job)
+        {
+            if (job != null)
+            {
+                await _jobService.Add(job);
+                return CreatedAtAction(nameof(GetAll), new { id = job.Id }, job);
+            }
+            return null;
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult<Job>> Delete(int id)
+        {
+            var job = await _jobService.DeleteAsync(id);
+
+            if (job == null)
+            {
+                return NotFound($"No se encontró el comprobante con el id: {id}");
+            }
+
+            return Ok(job);
+        }
     }
 }

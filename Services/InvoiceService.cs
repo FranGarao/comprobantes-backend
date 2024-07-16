@@ -33,7 +33,6 @@ namespace comprobantes_back.Services
         {
             var invoices = await GetAllASync();
             var job = await _jobService.GetById(invoice.JobId);
-
             var newInvoice = new Invoice
             {
                 Id = invoice.Id,
@@ -45,6 +44,7 @@ namespace comprobantes_back.Services
                 Balance = invoice.Balance,
                 JobId = invoice.JobId,
                 Job = job.Name,
+                Status = false
             };
 
             invoices.Add(newInvoice);

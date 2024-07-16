@@ -1,22 +1,87 @@
 [
   {
+    "Id": 0,
+    "Name": "Otro",
+    "Price": 0
+  },
+  {
     "Id": 1,
-    "Name": "Arreglo General",
-    "Price": 200.5
+    "Name": "Reparaci\u00F3n de Suela",
+    "Price": 10000
   },
   {
     "Id": 2,
-    "Name": "Limpieza General",
-    "Price": 100.5
+    "Name": "Cambio de Tacones",
+    "Price": 12000
   },
   {
     "Id": 3,
-    "Name": "Que se yo no se me ocurre",
-    "Price": 990.5
+    "Name": "Limpieza Profesional",
+    "Price": 11000
   },
   {
     "Id": 4,
-    "Name": "uwu arigato",
-    "Price": 990.5
+    "Name": "Tintura de Zapatos",
+    "Price": 13000
+  },
+  {
+    "Id": 5,
+    "Name": "Reparaci\u00F3n de Costuras",
+    "Price": 10500
+  },
+  {
+    "Id": 6,
+    "Name": "Ajuste de Tallas",
+    "Price": 14000
+  },
+  {
+    "Id": 7,
+    "Name": "Reemplazo de Plantillas",
+    "Price": 10200
+  },
+  {
+    "Id": 8,
+    "Name": "Cambio de Cremalleras",
+    "Price": 11500
+  },
+  {
+    "Id": 9,
+    "Name": "Reparaci\u00F3n de Puntas",
+    "Price": 10800
+  },
+  {
+    "Id": 10,
+    "Name": "Pulido de Cuero",
+    "Price": 12500
+  },
+  {
+    "Id": 11,
+    "Name": "Reparaci\u00F3n de Forros",
+    "Price": 11200
+  },
+  {
+    "Id": 12,
+    "Name": "Cambio de Cordones",
+    "Price": 10100
+  },
+  {
+    "Id": 13,
+    "Name": "Reparaci\u00F3n de Hebillas",
+    "Price": 10300
+  },
+  {
+    "Id": 14,
+    "Name": "Impermeabilizaci\u00F3n de Zapatos",
+    "Price": 11800
+  },
+  {
+    "Id": 15,
+    "Name": "Personalizaci\u00F3n de Calzado",
+    "Price": 15000
+  },
+  {
+    "Id": 16,
+    "Name": "",
+    "Price": 0
   }
 ]
