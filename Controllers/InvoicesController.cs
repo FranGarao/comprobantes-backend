@@ -9,6 +9,7 @@ namespace comprobantes_back.Controllers
     //[Authorize(Roles ="Admin")]
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class InvoicesController : ControllerBase
     {
         private readonly ICommonService<Invoice> _invoiceService;
@@ -85,7 +86,7 @@ namespace comprobantes_back.Controllers
 
             if (updatedInvoice == null)
             {
-                return NotFound($"No se encontró el comprobante con el id: {invoice.Id}");
+                return BadRequest($"No se encontró el comprobante con el id: {invoice.Id}");
             }
 
             return Ok(updatedInvoice);

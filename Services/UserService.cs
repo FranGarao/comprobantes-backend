@@ -1,4 +1,8 @@
 ﻿using comprobantes_back.Models;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Text.Json;
 
 namespace comprobantes_back.Services
@@ -31,20 +35,33 @@ namespace comprobantes_back.Services
             throw new NotImplementedException();
         }
 
-        public async Task<User> Login(User userData)
+        public async Task<string> Login(User userData)
         {
             if (userData == null)
             {
                 return null;
             }
+
             var users = await GetAll();
-            var user = users.FirstOrDefault(i => i.UserName == userData.UserName);
+            var user = users.FirstOrDefault(i => i.UserName == userData.UserName && i.Password == userData.Password);
 
-
-            if (user != null && user.Password == userData.Password)
+            if (user != null)
             {
-                return user;
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes("askop[owike90234812opk@@#%$^$idouj23--32193jdaijhd"); //TODO: cambiar xd
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                    new Claim(ClaimTypes.Name, userData.UserName)
+                    }),
+                    Expires = DateTime.UtcNow.AddHours(1),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                return tokenHandler.WriteToken(token);
             }
+
             return null;
         }
     }

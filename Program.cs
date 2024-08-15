@@ -9,32 +9,33 @@ var builder = WebApplication.CreateBuilder(args);
 // Injection of services
 builder.Services.AddSingleton<ICommonService<Invoice>, InvoiceService>();
 builder.Services.AddSingleton<ICommonService<Job>, JobService>();
+builder.Services.AddSingleton<ICommonService<Customer>, CustomerService>();
 builder.Services.AddSingleton<ILoginService<User>, UserService>();
 
+// Obtain the secret key from configuration
+var key = builder.Configuration.GetValue<string>("ApiSettings:Secret") ?? "askop[owike90234812opk@@#%$^$idouj23--32193jdaijhd";
 
-var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");
-
-// Add services to the container.
+// Add services to the container
 builder.Services.AddControllers();
 
-//Config de jwt
-builder.Services.AddAuthentication(x =>
+// Configure JWT authentication
+builder.Services.AddAuthentication(options =>
 {
-    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(x =>
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
 {
-    x.RequireHttpsMetadata = false;
-    x.SaveToken = true;
-    x.TokenValidationParameters = new TokenValidationParameters
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("pluto")),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
         ValidateIssuer = false,
         ValidateAudience = false,
     };
 });
-
 
 // Configure CORS
 builder.Services.AddCors(options =>
@@ -47,14 +48,13 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Swagger/OpenAPI services
+// Configure Swagger/OpenAPI services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 
 // Enable Swagger only in Development environment
 if (app.Environment.IsDevelopment())
@@ -66,7 +66,7 @@ if (app.Environment.IsDevelopment())
 // Apply CORS policy
 app.UseCors("AllowAll");
 
-//Soporte para auth
+// Support for authentication
 app.UseAuthentication();
 
 app.UseHttpsRedirection();

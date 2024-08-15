@@ -1,4 +1,6 @@
-﻿using comprobantes_back.Models;
+﻿
+
+using comprobantes_back.Models;
 using System.Text.Json;
 
 namespace comprobantes_back.Services
@@ -6,6 +8,7 @@ namespace comprobantes_back.Services
     public class InvoiceService : ICommonService<Invoice>
     {
         private readonly string _filePath = "./db/invoices.json";
+        private readonly string _deletedInvoices = "./db/deletedInvoices.json";
         private ICommonService<Job> _jobService;
         public InvoiceService(ICommonService<Job> jobService)
         {
@@ -13,10 +16,21 @@ namespace comprobantes_back.Services
         }
         public async Task<List<Invoice>> GetAllASync()
         {
-                using var stream = new FileStream(_filePath, FileMode.Open, FileAccess.Read);
-                var invoices = await JsonSerializer.DeserializeAsync<List<Invoice>>(stream);
+            using var stream = new FileStream(_filePath, FileMode.Open, FileAccess.Read);
+            var invoices = await JsonSerializer.DeserializeAsync<List<Invoice>>(stream);
 
-                return invoices;
+            return invoices;
+        }
+
+        public async Task<List<Invoice>> GetAllDeleted()
+        {
+            using var stream = new FileStream(_deletedInvoices, FileMode.Open, FileAccess.Read);
+            var invoices = await JsonSerializer.DeserializeAsync<List<Invoice>>(stream);
+            if (invoices == null)
+            {
+                return [];
+            }
+            return invoices;
         }
 
         public async Task<Invoice> GetById(int id)
@@ -32,7 +46,7 @@ namespace comprobantes_back.Services
         public async Task<Invoice> Add(Invoice invoice)
         {
             var invoices = await GetAllASync();
-            var job = await _jobService.GetById(invoice.JobId);
+           //  var job = await _jobService.GetById(invoice.JobId);
             var newInvoice = new Invoice
             {
                 Id = invoice.Id,
@@ -43,8 +57,8 @@ namespace comprobantes_back.Services
                 Deposit = invoice.Deposit,
                 Balance = invoice.Balance,
                 JobId = invoice.JobId,
-                Job = job.Name,
-                Status = false
+                Job = invoice.Job,
+                Status = invoice.Status
             };
 
             invoices.Add(newInvoice);
@@ -73,10 +87,31 @@ namespace comprobantes_back.Services
         public async Task<Invoice> DeleteAsync(int id)
         {
             var invoice = await GetById(id);
+            var newInvoice = new Invoice
+            {
+                Id = invoice.Id,
+                Name = invoice.Name,
+                DeliveryDate = invoice.DeliveryDate,
+                Phone = invoice.Phone,
+                Total = invoice.Total,
+                Deposit = invoice.Deposit,
+                Balance = invoice.Balance,
+                JobId = invoice.JobId,
+                Job = invoice.Job,
+                Status = invoice.Status
+            };
+
+            var deletedInvoices = await GetAllDeleted();
+            deletedInvoices.Add(newInvoice);
+            var jsonDeletedInvoices = JsonSerializer.Serialize(deletedInvoices);
+            File.WriteAllText(_deletedInvoices, jsonDeletedInvoices);
+            
             var invoices = await GetAllASync();
             invoices.RemoveAll(i => i.Id == id);
+            
             var jsonInvoices = JsonSerializer.Serialize(invoices);
             File.WriteAllText(_filePath, jsonInvoices);
+            
             return invoice;
         }
 

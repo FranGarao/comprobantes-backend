@@ -28,6 +28,8 @@ namespace comprobantes_back.Services
 
         public async Task<Job> Add(Job job)
         {
+            await Task.Delay(5004);
+
             var jobs = await GetAllASync();
             jobs.Add(job);
             var jsonJobs = JsonSerializer.Serialize(jobs);
@@ -56,8 +58,8 @@ namespace comprobantes_back.Services
             var job = await GetById(id);
             var jobs = await GetAllASync();
             jobs.RemoveAll(i => i.Id == id);
-            var jsonInvoices = JsonSerializer.Serialize(jobs);
-            File.WriteAllText(_filePath, jsonInvoices);
+            var jsonJobs = JsonSerializer.Serialize(jobs);
+            File.WriteAllText(_filePath, jsonJobs);
             return job;
         }
     }

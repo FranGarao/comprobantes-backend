@@ -1,6 +1,6 @@
 [
   {
-    "Id": 1,
+    "Id": 15,
     "Name": "Francisco Garao",
     "Phone": "1126539889",
     "DeliveryDate": "2024-02-10T00:00:00",
@@ -9,30 +9,6 @@
     "Balance": 0,
     "JobId": 0,
     "Job": "Reparaci\u00F3n de Suela, Limpieza Profesional, Nuevo trabajo",
-    "Status": "Finalizado"
-  },
-  {
-    "Id": 3,
-    "Name": "Pedro Gomez",
-    "Phone": "1160455868",
-    "DeliveryDate": "2024-11-11T00:00:00",
-    "Total": 10800,
-    "Deposit": 0,
-    "Balance": 10800,
-    "JobId": 9,
-    "Job": "Reparaci\u00F3n de Puntas",
-    "Status": "Finalizado"
-  },
-  {
-    "Id": 4,
-    "Name": "Francisco garay",
-    "Phone": "1126539889",
-    "DeliveryDate": "1212-12-12T00:00:00",
-    "Total": 10800,
-    "Deposit": 2121,
-    "Balance": 8679,
-    "JobId": 9,
-    "Job": "Reparaci\u00F3n de Puntas",
     "Status": "Finalizado"
   },
   {
@@ -48,13 +24,13 @@
     "Status": "Entregado"
   },
   {
-    "Id": 6,
-    "Name": "dsdassa",
-    "Phone": "123312132",
-    "DeliveryDate": "1212-12-12T00:00:00",
-    "Total": 10800,
-    "Deposit": 121212,
-    "Balance": -110412,
+    "Id": 4,
+    "Name": "Francisco garay",
+    "Phone": "1126539889",
+    "DeliveryDate": "1414-12-14T00:00:00",
+    "Total": 122,
+    "Deposit": 121,
+    "Balance": 0,
     "JobId": 9,
     "Job": "Reparaci\u00F3n de Puntas",
     "Status": "Entregado"
@@ -82,17 +58,5 @@
     "JobId": 11,
     "Job": "Reparacion de filtros",
     "Status": "Entregado"
-  },
-  {
-    "Id": 9,
-    "Name": "Francisco2 Garao2",
-    "Phone": "1122334455",
-    "DeliveryDate": "0012-12-12T00:00:00",
-    "Total": 13712,
-    "Deposit": 212,
-    "Balance": 13500,
-    "JobId": 0,
-    "Job": "Pulido de Cuero, qqqqeeee",
-    "Status": "Pendiente"
   }
 ]

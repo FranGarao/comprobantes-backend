@@ -2,6 +2,10 @@
 using comprobantes_back.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace comprobantes_back.Controllers
 {
@@ -14,21 +18,35 @@ namespace comprobantes_back.Controllers
         {
             _userService = service;
         }
+
+
         [HttpPost]
-        public async Task<ActionResult<User>> Login(User userData)
+        public async Task<IActionResult> Login([FromBody] User userData)
         {
             if (userData == null)
             {
                 return BadRequest("No se encontraron datos");
             }
 
-            var user = await _userService.Login(userData);
+            var token = await _userService.Login(userData);
 
-            if (user == null)
+            if (token == null)
             {
-                return BadRequest("Fallo en el inicio de sesion");
+                return Unauthorized();
             }
-            return Ok(user);
+
+            //var cookieOptions = new CookieOptions
+            //{
+            //    HttpOnly = false,
+            //    Secure = false, // Asegúrate de usar HTTPS
+            //    SameSite = SameSiteMode.Strict,
+            //    //SameSite = SameSiteMode.Stritc,
+            //    Expires = DateTime.UtcNow.AddHours(1)
+            //};
+
+            //Response.Cookies.Append("AuthToken", token, cookieOptions);
+
+            return Ok(new {_token =  token });
         }
     }
 }

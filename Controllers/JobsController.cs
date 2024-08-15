@@ -1,5 +1,6 @@
 ﻿using comprobantes_back.Models;
 using comprobantes_back.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace comprobantes_back.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class JobsController : ControllerBase
     {
         private readonly ICommonService<Job> _jobService;
@@ -42,6 +44,19 @@ namespace comprobantes_back.Controllers
                 return CreatedAtAction(nameof(GetAll), new { id = job.Id }, job);
             }
             return null;
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Job>> Update(int id, Job job)
+        {
+            var updatedCustomer = await _jobService.UpdateAsync(id, job);
+
+            if (updatedCustomer == null)
+            {
+                return NotFound($"No se encontró el trabajo con el id: {job.Id}");
+            }
+
+            return Ok(updatedCustomer);
         }
 
         [HttpDelete]

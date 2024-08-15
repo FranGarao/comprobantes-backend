@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="db\deletedInvoices.json" />
     <_ContentIncludedByDefault Remove="db\users.json" />
   </ItemGroup>
 
