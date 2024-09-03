@@ -3,6 +3,8 @@ using comprobantes_back.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,9 @@ builder.Services.AddSingleton<ILoginService<User>, UserService>();
 
 // Obtain the secret key from configuration
 var key = builder.Configuration.GetValue<string>("ApiSettings:Secret") ?? "askop[owike90234812opk@@#%$^$idouj23--32193jdaijhd";
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 // Add services to the container
 builder.Services.AddControllers();

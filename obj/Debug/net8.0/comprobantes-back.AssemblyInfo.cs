@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("comprobantes-back")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4fc19c9fb171789520066c40ef668354ab3ba580")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+27e25ec12c4656f4be079097c4b44ab242b8836d")]
 [assembly: System.Reflection.AssemblyProductAttribute("comprobantes-back")]
 [assembly: System.Reflection.AssemblyTitleAttribute("comprobantes-back")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

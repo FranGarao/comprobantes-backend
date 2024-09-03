@@ -9,7 +9,7 @@ namespace comprobantes_back.Controllers
     //[Authorize(Roles ="Admin")]
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class InvoicesController : ControllerBase
     {
         private readonly ICommonService<Invoice> _invoiceService;
